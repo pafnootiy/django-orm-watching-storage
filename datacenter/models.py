@@ -31,46 +31,32 @@ class Visit(models.Model):
             )
         )
 
-
-class Duration():
-    def __init__(self, visit):
-        self.visit = visit
-
     def get_duration(self, visit):
+        self.visit = visit
         entered_time = visit.entered_at
         leaved_time = visit.leaved_at
         time_duration = leaved_time - entered_time
         return time_duration.total_seconds()
 
     def get_time_in_storage(self, visit):
+        self.visit = visit
         entered_time = self.visit.entered_at
         time_in_storage = localtime() - entered_time
         return time_in_storage.total_seconds()
 
-
-class Format:
-    def __init__(self, duration):
-        self.duration = duration
-
     def format_duration(self, duration):
+        self.duration = duration
         hours = round(duration // 3600)
         minutes = round((duration % 3600) // 60)
         return f" {hours}ч {minutes}м"
 
-
-class VisitLong:
-    def __init__(self, visit, minutes, duration):
+    def is_visit_long(self, visit, minutes, duration):
         self.visit = visit
         self.minutes = minutes
         self.duration = duration
-
-    def is_visit_long(self, visit, minutes, duration):
         all_cards = Passcard.objects.all()
         convert_time_for_check = round((duration % 3600) // 60)
         time_for_check = datetime.time(0, convert_time_for_check)
         control_time = datetime.time(0, minutes)
         for visit in all_cards:
-            if time_for_check < control_time:
-                return False
-            else:
-                return True
+            return not time_for_check < control_time
