@@ -31,18 +31,16 @@ class Visit(models.Model):
             )
         )
 
-    def get_duration(self, visit):
-        self.visit = visit
-        entered_time = visit.entered_at
-        leaved_time = visit.leaved_at
-        time_duration = leaved_time - entered_time
-        return time_duration.total_seconds()
+    def get_duration(self):
+        entered_time = self.entered_at
+        leaved_time = self.leaved_at
+        time_duration = 0
+        if leaved_time is None:
+            time_duration = localtime() - entered_time
+        else:
+            time_duration = leaved_time - entered_time
 
-    def get_time_in_storage(self, visit):
-        self.visit = visit
-        entered_time = self.visit.entered_at
-        time_in_storage = localtime() - entered_time
-        return time_in_storage.total_seconds()
+        return time_duration.total_seconds()
 
     def format_duration(self, duration):
         self.duration = duration
@@ -50,13 +48,9 @@ class Visit(models.Model):
         minutes = round((duration % 3600) // 60)
         return f" {hours}ч {minutes}м"
 
-    def is_visit_long(self, visit, minutes, duration):
-        self.visit = visit
-        self.minutes = minutes
-        self.duration = duration
+    def is_visit_long(self, minutes, duration):
         all_cards = Passcard.objects.all()
         convert_time_for_check = round((duration % 3600) // 60)
         time_for_check = datetime.time(0, convert_time_for_check)
         control_time = datetime.time(0, minutes)
-        for visit in all_cards:
-            return not time_for_check < control_time
+        return not time_for_check < control_time
