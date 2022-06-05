@@ -4,10 +4,10 @@ from django.shortcuts import render
 
 def storage_information_view(request):
     non_closed_visits = []
-    all_visits_in_storage = Visit.objects.filter(leaved_at=None)
-    for visit in all_visits_in_storage:
-        duration = Visit(visit).get_time_in_storage(visit)
-        format_time = Visit(duration).format_duration(duration)
+    still_in_storage = Visit.objects.filter(leaved_at=None)
+    for visit in still_in_storage:
+        duration = visit.get_duration()
+        format_time = visit.format_duration(duration)
         person_in_storage = {
             'who_entered': visit.passcard.owner_name,
             'entered_at': visit.entered_at,
