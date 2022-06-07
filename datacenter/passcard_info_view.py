@@ -4,18 +4,25 @@ from django.shortcuts import render
 
 
 def passcard_info_view(request, passcode):
-    passcard = Passcard.objects.all()[0]
-    # Программируем здесь
+    passcard = Passcard.objects.get(passcode=passcode)
+    serialized_visits = []
 
-    this_passcard_visits = [
-        {
-            'entered_at': '11-04-2018',
-            'duration': '25:03',
-            'is_strange': False
-        },
-    ]
+    person_visits = Visit.objects.filter(passcard=passcard)
+
+
+    for visit in person_visits:
+        duration = visit.get_duration()
+        format_time = visit.format_duration(duration)
+        visit_long = visit.is_visit_long(58, duration)
+        this_passcard_visits = {
+            'entered_at': visit.entered_at,
+            'duration': format_time,
+            'is_strange': visit_long
+        }
+        serialized_visits.append(this_passcard_visits)
+
     context = {
         'passcard': passcard,
-        'this_passcard_visits': this_passcard_visits
+        'this_passcard_visits': serialized_visits
     }
     return render(request, 'passcard_info.html', context)
