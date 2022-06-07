@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 
 def storage_information_view(request):
-    all_person_in_storage = []
+    serialized_person_in_storage = []
     still_in_storage = Visit.objects.filter(leaved_at=None)
     for visit in still_in_storage:
         duration = visit.get_duration()
@@ -14,8 +14,7 @@ def storage_information_view(request):
             'duration': format_time
         }
 
-        all_person_in_storage.append(person_in_storage)
-    context = {
-        'all_person_in_storage': all_person_in_storage,
+    serialized_person_in_storage.append(person_in_storage)
+    context = {'non_closed_visits': serialized_person_in_storage,
     }
     return render(request, 'storage_information.html', context)
