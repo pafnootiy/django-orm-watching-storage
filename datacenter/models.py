@@ -32,12 +32,10 @@ class Visit(models.Model):
         )
 
     def get_duration(self):
-        entered_time = self.entered_at
-        leaved_time = self.leaved_at
-        if leaved_time:
-            time_duration = leaved_time - entered_time
+        if self.leaved_at:
+            time_duration = self.leaved_at - self.entered_at
         else:
-            time_duration = localtime() - entered_time
+            time_duration = localtime() - self.leaved_at
 
         return time_duration.total_seconds()
 
@@ -47,7 +45,7 @@ class Visit(models.Model):
         return f" {hours}ч {minutes}м"
 
     def is_visit_long(self, minutes, duration):
-        convert_time_for_check = round((duration % 3600) // 60)
-        time_for_check = datetime.time(0, convert_time_for_check)
+        duration_time = round((duration % 3600) // 60)
+        time_for_check = datetime.time(0, duration_time)
         control_time = datetime.time(0, minutes)
         return not time_for_check < control_time
