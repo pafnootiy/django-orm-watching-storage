@@ -1,4 +1,14 @@
 import os
+from dotenv import load_dotenv
+from environs import Env
+
+env = Env()
+env.read_env()
+
+load_dotenv()
+user = os.getenv("USER")
+password = os.getenv("PASSWORD")
+secret_key = os.getenv("SECRET_KEY")
 
 DATABASES = {
     'default': {
@@ -6,21 +16,22 @@ DATABASES = {
         'HOST': 'checkpoint.devman.org',
         'PORT': '5434',
         'NAME': 'checkpoint',
-        'USER': 'guard',
-        'PASSWORD': 'osim5',
+        'USER': user,
+        'PASSWORD': password,
     }
 }
 
 INSTALLED_APPS = ['datacenter']
 
-SECRET_KEY = 'REPLACE_ME'
+SECRET_KEY = secret_key
 
-DEBUG = True
-
+# env.bool("DEBUG")
+# debug = env("DEBUG")
+DEBUG = env.bool("DEBUG")
 ROOT_URLCONF = 'project.urls'
-
+# DEBUG = True
+print(DEBUG)
 ALLOWED_HOSTS = ['*']
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATES = [
@@ -30,7 +41,6 @@ TEMPLATES = [
         'APP_DIRS': True,
     },
 ]
-
 
 USE_L10N = True
 
