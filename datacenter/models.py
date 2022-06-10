@@ -35,7 +35,7 @@ class Visit(models.Model):
         if self.leaved_at:
             time_duration = self.leaved_at - self.entered_at
         else:
-            time_duration = localtime() - self.leaved_at
+            time_duration = localtime() - self.entered_at
 
         return time_duration.total_seconds()
 
