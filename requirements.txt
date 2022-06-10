@@ -1,2 +1,12 @@
-django==3.2.*
-psycopg2-binary==2.9.*
+asgiref==3.5.2
+Django==3.2.13
+environs==9.5.0
+marshmallow==3.16.0
+packaging==21.3
+psycopg==3.0.14
+psycopg2-binary==2.9.3
+pyparsing==3.0.9
+python-dotenv==0.9.1
+pytz==2022.1
+sqlparse==0.4.2
+tzdata==2022.1
