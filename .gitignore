@@ -7,3 +7,7 @@
 *salary.py
 *mvp_salary.py
 *.idea
+*.replit
+*poetry.lock
+*pyproject.toml
+*
