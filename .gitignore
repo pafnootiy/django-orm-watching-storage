@@ -1,13 +1,5 @@
 # Default ignored files
-
-*.env
-*qwert.py
-*test.py
-*in_proccess.py
-*salary.py
-*mvp_salary.py
 *.idea
 *.replit
 *poetry.lock
 *pyproject.toml
-*
