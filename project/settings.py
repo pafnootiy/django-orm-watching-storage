@@ -4,7 +4,6 @@ from environs import Env
 
 env = Env()
 env.read_env()
-
 load_dotenv()
 user = os.getenv("USER")
 password = os.getenv("PASSWORD")
@@ -25,12 +24,8 @@ INSTALLED_APPS = ['datacenter']
 
 SECRET_KEY = secret_key
 
-# env.bool("DEBUG")
-# debug = env("DEBUG")
 DEBUG = env.bool("DEBUG")
 ROOT_URLCONF = 'project.urls'
-# DEBUG = True
-print(DEBUG)
 ALLOWED_HOSTS = ['*']
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
