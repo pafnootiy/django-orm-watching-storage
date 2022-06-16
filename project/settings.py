@@ -1,8 +1,8 @@
 import os
 from dotenv import load_dotenv
-
+from environs import Env
 load_dotenv()
-
+env = Env()
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -16,9 +16,9 @@ DATABASES = {
 
 INSTALLED_APPS = ['datacenter']
 SECRET_KEY = os.getenv("SECRET_KEY")
-DEBUG = os.getenv("DEBUG")
+DEBUG = env.bool("DEBUG")
 ROOT_URLCONF = 'project.urls'
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS")
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
