@@ -4,4 +4,4 @@
 *poetry.lock
 *pyproject.toml
 *.env
-*datacenter\__pycache__
+*datacenter/__pycache__
