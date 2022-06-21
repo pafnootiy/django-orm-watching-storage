@@ -6,15 +6,15 @@
 Для работы со скриптами Вам необходимо будет создать и настройть файл с переменными окуржения `.env`.
 
 Для работы со скриптом `manage.py` в файл  `settings.py` необходимо передать перемнные окружения. Для этого в файл `.env` передаем следующие данные
-- `USER`
-- `PASSWORD`
-- `SECRET_KEY`
+- `DB_USER`
+- `DB_PASSWORD`
+- `DB_SECRET_KEY`
 
 
 Пример переданных данных для скрипта 
-- `USER = guard`
-- `PASSWORD = osim5`
-- `SECRET_KEY = REPLACE_ME`
+- `DB_USER = guard`
+- `DB_PASSWORD = osim5`
+- `DB_SECRET_KEY = REPLACE_ME`
 
 
 ## Запуск скрипта 
