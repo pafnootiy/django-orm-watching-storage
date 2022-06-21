@@ -5,3 +5,4 @@
 *pyproject.toml
 *.env
 *datacenter/__pycache__
+*datacenter/migrations/__pycache__
